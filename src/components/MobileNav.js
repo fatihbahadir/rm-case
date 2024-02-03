@@ -12,6 +12,9 @@ const MobileNav = ({setMobileNav}) => {
               </li>
           ))
       }
+                <li>
+          <a onClick={()=>setMobileNav(false)} className='link text-white text-xl' href={'/favs'}>Favorite Characters</a>
+         </li>
     </ul>
   </div>
   )
