@@ -6,6 +6,7 @@ import axios from '../api/axios';
 import Navbar from '../components/Navbar';
 import CharacterCart from '../components/CharacterCart';
 import LoadingSpinner from '../components/LoadingSpinner';
+import RmGif from '../assets/gifs/rm.gif';
 
 const FavouriteCharacters = () => {
   const favorites = useSelector(selectFavorites);
@@ -18,13 +19,18 @@ const FavouriteCharacters = () => {
     dispatch(toggleFavorite(characterId));
   };
 
-  const fetchData = (pageNumber) => {
+  const fetchData = () => {
     setLoading(true);
+    if (favorites.length < 1) {
+      setCharacters([])
+      setLoading(false);
+      return ;
+    }
     axios
       .get(`/api/character/${favorites.join(',')}`)
       .then((response) => {
-        setCharacters(response.data);
-        console.log(response.data)
+        const charactersArray = Array.isArray(response.data) ? response.data : [response.data];
+        setCharacters(charactersArray);
         setLoading(false)
       })
       .catch((err) => {
@@ -48,8 +54,15 @@ const FavouriteCharacters = () => {
                     <LoadingSpinner/> 
               </div>
            :
+              characters.length === 0 ?
+              <div className='flex flex-col items-center justify-center gap-6 font-lg mt-12'>
+                <h2 className='text-xl text-red-600'>There is no favorite character ! Go to characters to add one</h2>
+                <img src={RmGif}/>
+              </div>
+
+              :
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-12 gap-16">
-              {characters.map((c) => (
+              {characters?.map((c) => (
                 <CharacterCart
                   character={c}
                   key={c.id}
