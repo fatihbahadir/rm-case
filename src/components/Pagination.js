@@ -1,11 +1,8 @@
-// Pagination.js
-
 import React from 'react';
 
 const Pagination = ({ currentPage, totalPages, setPage }) => {
   const renderPageNumbers = () => {
-    const displayRange = 3; // Gösterilecek sayfa numaralarının aralığı
-
+    const displayRange = 3; 
     let startPage = Math.max(1, currentPage - displayRange);
     let endPage = Math.min(totalPages, currentPage + displayRange);
 

@@ -8,8 +8,6 @@ import { nav } from "../data/data";
 import { useSelector } from "react-redux";
 import { selectFavorites } from "../redux/characterSlice";
 
-// episodes, characters, locations, main
-
 const Navbar = ({ isMain }) => {
   const [mobileNav, setMobileNav] = useState(false);
   const favorites = useSelector(selectFavorites);
